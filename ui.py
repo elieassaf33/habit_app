@@ -115,7 +115,10 @@ class HabitTrackerUI:
         self.details_text.insert(tk.END, f"Name: {habit.name}\n")
         self.details_text.insert(tk.END, f"Periodicity: {habit.periodicity}\n")
         self.details_text.insert(tk.END, f"Created: {habit.created_at}\n")
-        self.details_text.insert(tk.END, f"Current Streak: {habit.get_streak()}\n\n")
+
+        # NEW: show both current + record streak
+        self.details_text.insert(tk.END, f"Current Streak: {habit.get_streak()}\n")
+        self.details_text.insert(tk.END, f"Record Streak: {habit.get_record_streak()}\n\n")
 
         self.details_text.insert(tk.END, "Completions:\n")
         for ts in sorted(habit.completions, reverse=True):
@@ -246,36 +249,36 @@ class HabitTrackerUI:
             text.insert(tk.END, f" • {h.name}\n")
 
         # ---------------------------------------------------------
-        # Longest daily streak overall
+        # Longest daily streak overall (record streak)
         # ---------------------------------------------------------
         if daily:
-            longest_daily = max(daily, key=lambda h: h.get_streak())
+            longest_daily = max(daily, key=lambda h: h.get_record_streak())
             text.insert(tk.END, "\nLongest Daily Streak Overall:\n")
             text.insert(
                 tk.END,
-                f" • {longest_daily.name}: {longest_daily.get_streak()}\n"
+                f" • {longest_daily.name}: {longest_daily.get_record_streak()}\n"
             )
 
         # ---------------------------------------------------------
-        # Longest weekly streak overall
+        # Longest weekly streak overall (record streak)
         # ---------------------------------------------------------
         if weekly:
-            longest_weekly = max(weekly, key=lambda h: h.get_streak())
+            longest_weekly = max(weekly, key=lambda h: h.get_record_streak())
             text.insert(tk.END, "\nLongest Weekly Streak Overall:\n")
             text.insert(
                 tk.END,
-                f" • {longest_weekly.name}: {longest_weekly.get_streak()}\n"
+                f" • {longest_weekly.name}: {longest_weekly.get_record_streak()}\n"
             )
 
         # ---------------------------------------------------------
-        # Longest streak per habit
+        # Longest streak per habit (record streak)
         # ---------------------------------------------------------
         text.insert(tk.END, "\nLongest Streak Per Habit:\n")
         for h in habits:
-            text.insert(tk.END, f" • {h.name}: {h.get_streak()}\n")
+            text.insert(tk.END, f" • {h.name}: {h.get_record_streak()}\n")
 
         # ---------------------------------------------------------
-        # Longest streak for selected habit
+        # Longest streak for selected habit (record streak)
         # ---------------------------------------------------------
         selection = self.habit_listbox.curselection()
         if selection:
@@ -283,7 +286,7 @@ class HabitTrackerUI:
             text.insert(tk.END, "\nLongest Streak For Selected Habit:\n")
             text.insert(
                 tk.END,
-                f" • {selected.name}: {selected.get_streak()}\n"
+                f" • {selected.name}: {selected.get_record_streak()}\n"
             )
 
         text.config(state="disabled")

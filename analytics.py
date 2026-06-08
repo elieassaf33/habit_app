@@ -26,13 +26,12 @@ def list_by_periodicity(habits, periodicity):
 def longest_streak_all(habits):
     if not habits:
         return None
-    return max(habits, key=lambda h: h.get_streak())
-
-
+    return max(habits, key=lambda h: h.get_record_streak())
 
 
 def longest_streak_for(habits, name):
     matching = [h for h in habits if h.name == name]
     if not matching:
         return None
-    return max(matching, key=lambda h: h.get_streak())
+    return max(matching, key=lambda h: h.get_record_streak())
+

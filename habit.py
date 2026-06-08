@@ -121,3 +121,45 @@ class Habit:
         created_at = datetime.fromisoformat(created_at_str)
         return cls(name=name, periodicity=periodicity,
                    id=habit_id, created_at=created_at)
+
+    def get_record_streak(self) -> int:
+        if not self.completions:
+            return 0
+
+        # Normalize dates or weeks depending on periodicity
+        if self.periodicity == "daily":
+            dates = sorted({c.date() for c in self.completions})
+            max_streak = 1
+            current = 1
+
+            for i in range(1, len(dates)):
+                if (dates[i] - dates[i - 1]).days == 1:
+                    current += 1
+                else:
+                    max_streak = max(max_streak, current)
+                    current = 1
+
+            return max(max_streak, current)
+
+        if self.periodicity == "weekly":
+            weeks = sorted(
+                {(c.isocalendar().year, c.isocalendar().week) for c in self.completions}
+            )
+            max_streak = 1
+            current = 1
+
+            for i in range(1, len(weeks)):
+                prev_year, prev_week = weeks[i - 1]
+                year, week = weeks[i]
+
+                # consecutive week logic
+                if (year == prev_year and week - prev_week == 1) or \
+                (year - prev_year == 1 and prev_week == 52 and week == 1):
+                    current += 1
+                else:
+                    max_streak = max(max_streak, current)
+                    current = 1
+
+            return max(max_streak, current)
+
+        return 0
