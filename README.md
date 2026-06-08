@@ -27,6 +27,8 @@ habit_tracker/
 │
 ├── habit.py
 ├── manager.py
+├── requirements.txt
+├── __init__.py
 ├── storage.py
 ├── analytics.py
 ├── ui.py
@@ -45,19 +47,19 @@ habit_tracker/
 
 ### 1. Clone the repository
 
-git clone <your-repo-url>
-cd habit_tracker
+git clone <https://github.com/elieassaf33/habit_app>
 
 
 ### 2. Requirements
-The project uses only Python’s built‑in modules:
+The project uses Python’s built‑in modules:
 
 - sqlite3
 - tkinter
 - datetime
+
+Only one needed external installation:
 - pytest
 
-No external installation is required.
 
 ### 3. Run the application
 
@@ -189,6 +191,12 @@ The architecture supports easy unit testing:
 - Habit streak logic
 - Analytics functions
 - HabitManager operations
+
+Run:
+
+python -m pytest -vv
+
+The tests will run
 
 ---
 
