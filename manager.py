@@ -14,6 +14,7 @@ class HabitManager:
         - Create new habits.
         - Record habit completions.
         - Provide access to the list of habits for analytics/UI.
+        - Delete habits from both memory and storage.
     """
 
     def __init__(self, storage: Storage):
@@ -75,3 +76,12 @@ class HabitManager:
 
         return False
 
+    def delete_habit(self, habit_id: int) -> None:
+        """
+        Delete a habit from memory and storage.
+        """
+        # Remove from SQLite
+        self.storage.delete_habit(habit_id)
+
+        # Remove from in-memory list
+        self.habits = [h for h in self.habits if h.id != habit_id]

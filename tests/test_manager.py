@@ -5,6 +5,7 @@ Covers:
 - Habit creation
 - Completing habits
 - Preventing double completion
+- Deleting habits
 """
 
 from datetime import datetime
@@ -52,3 +53,13 @@ def test_prevent_double_completion(tmp_path):
     success = manager.complete_habit(h.id)
 
     assert success is False
+
+def test_delete_habit(tmp_path):
+    db = tmp_path / "test.db"
+    storage = Storage(str(db))
+    manager = HabitManager(storage)
+
+    h = manager.create_habit("Test", "daily")
+    manager.delete_habit(h.id)
+
+    assert len(manager.habits) == 0

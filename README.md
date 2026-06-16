@@ -184,6 +184,16 @@ Missing a week resets the streak.
 Double completion in the same day/week is blocked.
 
 ---
+## Screenshots
+
+### Main UI
+![Main UI](screenshots/ui_main.png)
+
+### Analytics
+![Analytics](screenshots/analytics.png)
+
+### Tests
+![Tests](screenshots/tests.png)
 
 ## Testing
 The architecture supports easy unit testing:
